@@ -1,6 +1,7 @@
 class NewsView {
     constructor(apiCallsModel) {
-        this.apiCallsModel = apiCallsModel
+        this.apiCallsModel = apiCallsModel;
+        this.error = error.getInstance();
     }
 
     SetChanells() {
@@ -11,12 +12,16 @@ class NewsView {
                 opt1.text = ret_val.sources[i].name;
                 document.getElementById('channels').add(opt1, null);
             }
+        }).catch(err => {
+            this.error.errorMessage = err;
+            this.ShowError();
         })
     };
 
     SetNews() {
         const selectElement = document.querySelector('#channels');
         selectElement.addEventListener('change', (event) => {
+            this.error.errorMessage = '';
             this.apiCallsModel.getNews(event.target.value).then(ret_val => {
                 var tableRef = document.getElementById('news').getElementsByTagName('tbody')[0];
                 for (var i = tableRef.rows.length - 1; i > 0; i--) {
@@ -31,7 +36,16 @@ class NewsView {
 
                     newRow.innerHTML = `<tr><td>${obj.title}</td><td>${obj.description}</td><tr>`;
                 }
+            }).catch(err => {
+                this.error.errorMessage = err;
+                this.ShowError();
             })
         });
+    }
+
+    ShowError() {
+        if (this.error.errorMessage != '') {
+            alert(this.error.errorMessage);
+        }
     }
 }

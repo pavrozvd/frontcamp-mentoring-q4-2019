@@ -1,16 +1,15 @@
 class ApiCallsModel {
-    async getNews(channel = "ars-technica") {	
+    constructor(){
+      this.callToNewsServer = new CallToNewsServerFactory();
+    }
+
+    getNews(channel = "ars-technica") {	
       const URL = 'https://newsapi.org/v1/articles?source=' + channel + '&apiKey=d6f85eed1e60462e8d156f1030124aef';
-      const fetchResult = fetch(URL)
-      const response = await fetchResult;
-      return await response.json();
+      return this.callToNewsServer.call(URL,'GET');
     }
   
-    async getSources() {
-      const URL = 'https://newsapi.org/v1/sources';
-      const fetchResult = fetch(URL)
-      const response = await fetchResult;
-      return await response.json();
+    getSources() {
+      return this.callToNewsServer.call('https://newsapi.org/v1/sources','GET');
     }
 }
   
