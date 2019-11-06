@@ -1,8 +1,3 @@
-export const error = {
-    errorMessage: '',
-    getInstance() { return this }
-};
-
 export class CallToNewsServerFactory{
     async call(url,method) {
         switch(method){
