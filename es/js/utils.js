@@ -1,9 +1,9 @@
-const error = {
+export const error = {
     errorMessage: '',
     getInstance() { return this }
 };
 
-class CallToNewsServerFactory{
+export class CallToNewsServerFactory{
     async call(url,method) {
         switch(method){
             case "GET": {
@@ -20,7 +20,7 @@ class CallToNewsServerFactory{
     }
 }
 
-function logger(url, method){
+export function logger(url, method){
     let target = {};
     let proxy = new Proxy(target, {}); 
     

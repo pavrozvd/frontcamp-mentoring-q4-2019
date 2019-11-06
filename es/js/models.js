@@ -1,4 +1,6 @@
-class ApiCallsModel {
+import { CallToNewsServerFactory } from './utils.js';
+
+export class ApiCallsModel {
     constructor(){
       this.callToNewsServer = new CallToNewsServerFactory();
     }
